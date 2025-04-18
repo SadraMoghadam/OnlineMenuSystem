@@ -147,3 +147,5 @@ Plugins/*/Intermediate/
 
 # Ignore Crash Reports
 CrashReportClient/Saved/
+Content/StarterContent/
+Content/Characters/Mannequins/
