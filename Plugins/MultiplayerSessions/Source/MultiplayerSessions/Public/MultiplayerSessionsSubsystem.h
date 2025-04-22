@@ -7,6 +7,9 @@
 #include "Interfaces/OnlineSessionInterface.h"
 #include "MultiplayerSessionsSubsystem.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMultiplayerOnCreateSessionComplete, bool, bWasSuccessful);
+
 /**
  * 
  */
@@ -24,6 +27,8 @@ public:
 	void JoinSession(const FOnlineSessionSearchResult& SessionResult);
 	void DestroySession();
 	void StartSession();	
+	FMultiplayerOnCreateSessionComplete MultiplayerOnCreateSessionComplete;
+
 protected:
 
 	// Internal callbacks for the delegates we'll add to the online session interface delegate list.
@@ -36,6 +41,7 @@ protected:
 private:
 
 	IOnlineSessionPtr SessionInterface;
+	TSharedPtr<FOnlineSessionSettings> LastSessionSettings;
 	// To add to the onlinse session interface delegate list 
 	// We'll bind our MultiplayerSessionsSubsystem functions to these delegates
 	FOnCreateSessionCompleteDelegate CreateSessionCompleteDelegate;
