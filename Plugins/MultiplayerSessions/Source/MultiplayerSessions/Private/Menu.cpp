@@ -7,8 +7,9 @@
 #include "MultiplayerSessionsSubsystem.h"
 #include "OnlineSubsystem.h"
 
-void UMenu::MenuSetup(int32 NumOfPublicConnections, FString TypeOfMatch)
+void UMenu::MenuSetup(int32 NumOfPublicConnections, FString TypeOfMatch, FString LobbyPath)
 {
+	this->PathToLobby = FString::Printf(TEXT("%s?listen"), *LobbyPath);
 	this->NumberOfPublicConnections = NumOfPublicConnections;
 	this->MatchType = TypeOfMatch;
 	AddToViewport();
@@ -90,7 +91,7 @@ void UMenu::OnCreateSession(bool bWasSuccessful)
 		UWorld* World = GetWorld();
 		if (World)
 		{
-			World->ServerTravel("/Game/ThirdPerson/Maps/Lobby?listen");
+			World->ServerTravel(PathToLobby);
 		}
 	}
 	else
